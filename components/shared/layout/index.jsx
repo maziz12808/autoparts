@@ -460,8 +460,8 @@ const LayoutEl = ({children,title})=>{
                             <Button 
                                 type="text" 
                                 style={{color: "white"}} 
-                                className="bg-gray-700 rounded-full" 
-                                icon={<FacebookFilled />} 
+                                className="bg-gray-700 rounded-full"
+                                icon={<i class='bx bxl-facebook' /> }
                             />
                             <Button 
                                 type="text" 

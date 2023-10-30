@@ -1,2 +1,2 @@
-import Layout from "@/components/shared/layout"
-export default Layout
+import Home from "@/components/Home"
+export default Home
