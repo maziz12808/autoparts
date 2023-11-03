@@ -106,13 +106,17 @@ const Hero = ()=>{
             <div className="flex gap-8 px-[3%] py-[1.5%]">
                 {
                     feature.map((item,index)=>{
-                        return <p className="text-sm text-slate-600">{item.icon }{item.text }</p>
+                        return <p key={index} className="text-sm text-slate-600">
+                                    {item.icon }{item.text }
+                                </p>
                     })
                 }
             </div>
             <div className="grid grid-cols-3 gap-7 p-2 border-b pb-7 border-b-gray-400">
                 <div className="border-2 rounded border-[#F85900] p-6">
-                    <h1 className="text-lg font-semibold">Find The Right Parts Faster</h1>
+                    <h1 className="text-lg font-semibold">
+                        Find The Right Parts Faster
+                    </h1>
                     <span className="text-xs text-neutral-500">
                         Having the right automotive parts and car <br />
                         accessories will help you to boost your travel <br />
