@@ -385,7 +385,7 @@ const LayoutEl = ({children,title})=>{
                 </div>
             </header>
             {/* End Header */}
-            <section className="px-[3%]">
+            <section>
             
                 {
                     children

@@ -6,9 +6,11 @@ import HomeProducts from "./home-products";
 const Home = ()=>{
     return (
         <Layout title="Home">
+            <div className="px-[3%]">
             <Hero /> 
             <HomeProducts />
             <WeeklyDiscountProduct />
+            </div>
         </Layout>
     )
 }

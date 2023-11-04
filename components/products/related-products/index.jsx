@@ -1,0 +1,206 @@
+import Image from "next/image"
+import Link from "next/link"
+import { Button } from "antd"
+import {
+    HeartOutlined,
+    ShoppingCartOutlined
+} from "@ant-design/icons"
+const RelatedProducts = ()=>{
+    // CONST
+    const productsDetaeil = [
+        {
+            title: "10.1 CD/DVD Multimedia Receiver with Apple CarPlay and Android Auto CAR8000",
+            src: "/images/products-images/image-1-13-300x300.png",
+            discount: "3%",
+            originalPrice: "$369.00",
+            discountPrice: "$350.0",
+            stock: "In Stock"
+        },
+        {
+            title: "Alpharex® Sequential Tail Lights",
+            src: "/images/products-images/image-1-300x300.png",
+            discount: "6%",
+            originalPrice: "$340.00",
+            discountPrice: "$300.0",
+            stock: "In Stock"
+        },
+        {
+            title: "Anzo® Halo Headlights",
+            src: "/images/products-images/image-1-1-300x300.png",
+            discount: "5%",
+            originalPrice: "$340.00",
+            discountPrice: "$320.0",
+            stock: "In Stock"
+        },
+        {
+            title: "Anzo® Fiber Optic LED Tail Lights",
+            src: "/images/products-images/image-1-2-300x300.png",
+            discount: "5%",
+            originalPrice: "$340.00",
+            discountPrice: "$320.0",
+            stock: "In Stock"
+        },
+        {
+            title: "Anzo® Fiber Optic LED Tail Lights",
+            src: "/images/products-images/image-1-3-300x300.png",
+            discount: "5%",
+            originalPrice: "$340.00",
+            discountPrice: "$320.0",
+            stock: "In Stock"
+        },
+        {
+            title: "Anzo® Fiber Optic LED Tail Lights",
+            src: "/images/products-images/image-1-6-300x300.png",
+            discount: "5%",
+            originalPrice: "$340.00",
+            discountPrice: "$320.0",
+            stock: "In Stock"
+        },
+        {
+            title: "Anzo® Fiber Optic LED Tail Lights",
+            src: "/images/products-images/image-1-11-300x300.png",
+            discount: "5%",
+            originalPrice: "$340.00",
+            discountPrice: "$320.0",
+            stock: "In Stock"
+        },
+        {
+            title: "Anzo® Fiber Optic LED Tail Lights",
+            src: "/images/products-images/image-1-12-300x300.png",
+            discount: "5%",
+            originalPrice: "$340.00",
+            discountPrice: "$320.0",
+            stock: "In Stock"
+        },
+        {
+            title: "Anzo® Fiber Optic LED Tail Lights",
+            src: "/images/products-images/image-1-16-300x300.png",
+            discount: "5%",
+            originalPrice: "$340.00",
+            discountPrice: "$320.0",
+            stock: "In Stock"
+        },
+        {
+            title: "Anzo® Fiber Optic LED Tail Lights",
+            src: "/images/products-images/image-1-18-300x300.png",
+            discount: "5%",
+            originalPrice: "$340.00",
+            discountPrice: "$320.0",
+            stock: "In Stock"
+        },
+        {
+            title: "Anzo® Fiber Optic LED Tail Lights",
+            src: "/images/products-images/image-2-19-300x300.png",
+            discount: "5%",
+            originalPrice: "$340.00",
+            discountPrice: "$320.0",
+            stock: "Out of Stock"
+        },
+        {
+            title: "Anzo® Fiber Optic LED Tail Lights",
+            src: "/images/products-images/image-1-26-300x300.png",
+            discount: "5%",
+            originalPrice: "$340.00",
+            discountPrice: "$320.0",
+            stock: "Only 5 Items"
+        },
+        {
+            title: "Anzo® Fiber Optic LED Tail Lights",
+            src: "/images/products-images/image-1-38-300x300.png",
+            discount: "5%",
+            originalPrice: "$340.00",
+            discountPrice: "$320.0",
+            stock: "In Stock"
+        },
+        {
+            title: "Anzo® Fiber Optic LED Tail Lights",
+            src: "/images/products-images/image-1-39-300x300.png",
+            discount: "5%",
+            originalPrice: "$340.00",
+            discountPrice: "$320.0",
+            stock: "Out of Stock"
+        }
+        
+    ]
+    return (
+        <div className="col-span-3">
+            <div className="grid grid-cols-4 gap-2 px-5">
+                {
+                    productsDetaeil.map((item,index)=>(
+                        <div className="relative flex flex-col gap-y-3" key={index}>
+                            <Link 
+                                href={
+                                    "product/"+item.title
+                                    .toLocaleLowerCase()
+                                    .split(" ").join("-")
+                                    .split("/")
+                                    .join("-")}
+                                >
+                                <Image 
+                                    src={item.src} 
+                                    width={300} 
+                                    height={300} 
+                                    alt="image-1-13-300x300" 
+                                />
+                            </Link>
+                            <Button
+                                type="primary" 
+                                danger 
+                                className="absolute top-0 text-xs h-5 px-1 flex items-center" 
+                                style={{borderRadius: 3}}
+                            >{item.discount}</Button>
+                            <Button 
+                                shape="circle"
+                                icon={<HeartOutlined />}
+                                className="absolute top-4 bg-white border-0 right-3" 
+                                style={{color: "black"}}
+                            />
+                            <Link 
+                                href=
+                                {
+                                    "product/"+item.title
+                                    .toLocaleLowerCase()
+                                    .split(" ").join("-")
+                                    .split("/")
+                                    .join("-")
+                                }
+                            >
+                                <p className="text-xs font-semibold hover:underline cursor-pointer">
+                                    {item.title}
+                                </p>
+                            </Link>
+                            <div className="flex items-center">
+                                <i className='bx bx-star text-yellow-300'></i>
+                                <i className='bx bx-star text-yellow-300'></i>
+                                <i className='bx bx-star text-yellow-300'></i>
+                                <i className='bx bx-star text-yellow-300'></i>
+                                <i className='bx bx-star text-yellow-300'></i>
+                                <span className="ml-1 text-xs font-medium opacity-70">3</span>
+                            </div>
+                            <div className="flex justify-between pr-2">
+                                <div>
+                                    <p className="text-sm font-medium opacity-70 line-through">
+                                        {item.originalPrice}
+                                    </p>
+                                    <p className="font-medium text-orange-700">
+                                        {item.discountPrice}
+                                    </p>
+                                </div>
+                                <Button 
+                                    icon={<ShoppingCartOutlined />} 
+                                    style={{color: "white"}}
+                                    className="bg-[#F96919] border-0 flex items-center justify-center"
+                                />
+                                </div>
+                                <span className="text-xs font-medium text-[#22C55E]">
+                                    {item.stock}
+                                </span>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    )
+}
+
+export default RelatedProducts
