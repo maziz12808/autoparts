@@ -1,5 +1,6 @@
 import '../styles/globals.css'
-import 'boxicons/css/boxicons.min.css'
+import 'boxicons/css/boxicons.min.css' 
+import 'animate.css';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-fade';

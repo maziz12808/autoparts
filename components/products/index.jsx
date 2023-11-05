@@ -2,7 +2,7 @@ import Image from "next/image"
 import LayoutEl from "../shared/layout"
 import Filters from "./filters"
 import RelatedProducts from "./related-products"
-import { Button, Divider } from "antd"
+import { Button, Divider,Input } from "antd"
 import {
     AppstoreOutlined,
     UnorderedListOutlined
@@ -60,17 +60,20 @@ const Products = ()=>{
                     <div className="flex items-center gap-3">
                     <div className="flex  items-center">
                         <p className="text-xs opacity-70">Sort: </p>
-                        <select className="w-[120px] focus:outline-none">
+                        <select className="w-[120px] focus:outline-none text-xs">
                             {
                                 SortOption.map((item,index)=>(
-                                    <option value={item.value} key={index}>{item.label}</option>
+                                    <option 
+                                        value={item.value} 
+                                        key={index} 
+                                    >{item.label}</option>
                                 ))
                             }
                         </select>
                     </div>
                     <div className="flex  items-center">
                         <p className="text-xs opacity-70">Sort: </p>
-                        <select className="w-[120px] focus:outline-none">
+                        <select className="w-[120px] focus:outline-none text-xs">
                             {
                                 SortOption.map((item,index)=>(
                                     <option value={item.value} key={index}>{item.label}</option>
@@ -84,9 +87,35 @@ const Products = ()=>{
                     </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-4 py-3">
+                <div className="py-3 flex">
                     <Filters />
                     <RelatedProducts />
+                </div>
+                
+            </div>
+            <Divider />
+            <div className="mx-[3%] py-[3%] flex items-start justify-between">
+                <div className="w-6/12">
+                    <h1 className="font-semibold text-2xl">Join our newsletter for £10 offs</h1>
+                    <p className="text-sm opacity-70">Register now to get latest updates on promotions & coupons.<br />
+                        Don’t worry, we not spam!
+                    </p>
+                </div>
+                <div className="w-6/12  flex flex-col gap-2">
+                    <Input 
+                        size="large" 
+                        suffix=
+                        {
+                            <Button type="text" size="large" 
+                                style={{borderRadius:0}} 
+                                className="bg-orange-600  w-full"
+                            >Subscribe</Button>
+                        } 
+                    />
+                    <div className="text-xs">
+                        <span>By subscribing you agree to our </span>
+                        <a href="/" className="hover:underline underline-offset-2 text-orange-500">Terms & Conditions and Privacy & Cookies Policy.</a>
+                    </div>
                 </div>
             </div>
         </LayoutEl>

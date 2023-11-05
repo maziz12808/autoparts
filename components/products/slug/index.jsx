@@ -286,7 +286,7 @@ const SlugEL = ({title})=>{
     const incrementValue = ()=>{
         inputEl.current.input.value = inputEl.current.input.value < 10 ? (Number(inputEl.current.input.value) + 1) :  10
     }
-   
+    
     return (
         <LayoutEl>
             <div className="px-[3%] py-[1%] flex flex-col gap-12">
@@ -436,7 +436,7 @@ const SlugEL = ({title})=>{
                 <div>
                     <Tabs defaultActiveKey="1" items={items} />
                 </div>
-
+                <h1 className="font-semibold">Related Products</h1>
                 <RelatedProducts />
                 
             </div>

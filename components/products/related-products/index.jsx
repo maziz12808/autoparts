@@ -3,10 +3,13 @@ import Link from "next/link"
 import { Button } from "antd"
 import {
     HeartOutlined,
-    ShoppingCartOutlined
+    ShoppingCartOutlined,
+    FullscreenOutlined
 } from "@ant-design/icons"
+import { useState } from "react"
 const RelatedProducts = ()=>{
     // CONST
+    const [iconIndex,setIconIndex] = useState(false)
     const productsDetaeil = [
         {
             title: "10.1 CD/DVD Multimedia Receiver with Apple CarPlay and Android Auto CAR8000",
@@ -122,12 +125,24 @@ const RelatedProducts = ()=>{
         }
         
     ]
+
+    // FUNCTIONS
+    const showIcon = (index)=>{
+        setIconIndex(index)
+    }
+    const hideIcon = ()=>{
+        setIconIndex(-1)
+    }
     return (
-        <div className="col-span-3">
+        <div className="w-9/12">
             <div className="grid grid-cols-4 gap-2 px-5">
                 {
                     productsDetaeil.map((item,index)=>(
-                        <div className="relative flex flex-col gap-y-3" key={index}>
+                        <div 
+                            className="relative flex flex-col gap-y-3" key={index} 
+                            onMouseEnter={()=> showIcon(index)}
+                            onMouseLeave={()=> hideIcon()}
+                        >
                             <Link 
                                 href={
                                     "product/"+item.title
@@ -150,9 +165,10 @@ const RelatedProducts = ()=>{
                                 style={{borderRadius: 3}}
                             >{item.discount}</Button>
                             <Button 
-                                shape="circle"
+                                shape="circle" 
+                                size="middle"
                                 icon={<HeartOutlined />}
-                                className="absolute top-4 bg-white border-0 right-3" 
+                                className="absolute top-1 bg-white border-0 right-3" 
                                 style={{color: "black"}}
                             />
                             <Link 
@@ -191,10 +207,24 @@ const RelatedProducts = ()=>{
                                     style={{color: "white"}}
                                     className="bg-[#F96919] border-0 flex items-center justify-center"
                                 />
-                                </div>
-                                <span className="text-xs font-medium text-[#22C55E]">
-                                    {item.stock}
-                                </span>
+                            </div>
+                            <span className="text-xs font-medium text-[#22C55E]">
+                                {item.stock}
+                            </span>
+                            {
+                                iconIndex == index ? 
+                                        <div 
+                                            className="absolute right-3 top-10 
+                                            animate__animated animate__slideInRight animate__faster">
+                                            <Button 
+                                                shape="circle" 
+                                                size="middle"
+                                                icon={<FullscreenOutlined />}
+                                                className="bg-white border-0" 
+                                                style={{color: "black"}}
+                                            />
+                                        </div> : null
+                            }
                         </div>
                     ))
                 }
