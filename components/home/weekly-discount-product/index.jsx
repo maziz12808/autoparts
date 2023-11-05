@@ -1,39 +1,36 @@
 import Image from "next/image"
-import {Button} from "antd"
-const productData = [
-    {
-        src: "/images/banner-62.jpg",
-        discount: "Weekend Discount",
-        productTitle: "Tires & Weels",
-        discountDuration: "Only for this week...",
-        from: "from",
-        price: "$ 599.99"
-    },
-    {
-        src: "/images/banner-62.jpg",
-        discount: "Weekend Discount",
-        productTitle: "Tires & Weels",
-        discountDuration: "Only for this week...",
-        from: "from",
-        price: "$ 599.99"
-    },
-    ,
-    {
-        src: "/images/banner-62.jpg",
-        discount: "Weekend Discount",
-        productTitle: "Tires & Weels",
-        discountDuration: "Only for this week...",
-        from: "from",
-        price: "$ 599.99"
-    }
-]
+import {Button, Divider} from "antd"
+import ProductEl from "../products-list"
+
 const WeeklyDiscountProduct = ()=>{
-    const  timer = ()=>{
-        var counter = 60
-        setInterval(()=>{
-            //document.write(counter--)
-        }, 1000)
-    }
+    const productData = [
+        {
+            src: "/images/banner-62.jpg",
+            discount: "Weekend Discount",
+            productTitle: "Tires & Weels",
+            discountDuration: "Only for this week...",
+            from: "from",
+            price: "$ 599.99"
+        },
+        {
+            src: "/images/banner-62.jpg",
+            discount: "Weekend Discount",
+            productTitle: "Tires & Weels",
+            discountDuration: "Only for this week...",
+            from: "from",
+            price: "$ 599.99"
+        },
+        ,
+        {
+            src: "/images/banner-62.jpg",
+            discount: "Weekend Discount",
+            productTitle: "Tires & Weels",
+            discountDuration: "Only for this week...",
+            from: "from",
+            price: "$ 599.99"
+        }
+    ]
+    
     return (
         <>
             <div className="py-7 flex gap-5">
@@ -89,6 +86,8 @@ const WeeklyDiscountProduct = ()=>{
                     </Button>
                 </div>
             </div>
+            <Divider />
+            <ProductEl />
         </>
 
     )
