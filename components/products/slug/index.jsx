@@ -4,6 +4,7 @@ import Image from "next/image"
 import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
+import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 
 import { 
     Button, 
@@ -25,6 +26,7 @@ const { Item } = Form;
 
 const SlugEL = ({title})=>{
     const [iconIndex,setIconIndex] = useState(false)
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const inputEl = useRef();
     const productsDetaeil = [
         {
@@ -414,11 +416,20 @@ const SlugEL = ({title})=>{
                     </div>
                     <div className="grid grid-cols-3">
                         <div className="px-2 py-2">
-                            <Image 
-                            width={380} 
-                            height={380}
-                            src="/images/products-images/image-1-13-300x300.png" 
-                        />
+                            <Swiper
+                              spaceBetween={10}
+                              modules={[FreeMode]}
+                            >
+                                <SwiperSlide>
+                                    <Image width={380} height={380} src="/images/products-images/image-1-13-300x300.png" />
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <Image width={380} height={380} src="/images/products-images/image-3-6-1024x1024.png" />
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <Image width={380} height={380} src="/images/products-images/image-2-11-1024x1024.png" />
+                                </SwiperSlide>
+                            </Swiper>
                         </div>
                         <div className="px-2 py-2">
                             <div className="flex flex-col gap-3">
@@ -551,7 +562,7 @@ const SlugEL = ({title})=>{
                 
                 <div>
                 <Swiper
-                    slidesPerView={1}
+                    slidesPerView={2}
                     spaceBetween={20}
                     pagination={{
                     clickable: true,
