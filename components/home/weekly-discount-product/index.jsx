@@ -1,46 +1,43 @@
 import Image from "next/image"
-import {Button} from "antd"
-const productData = [
-    {
-        src: "/images/banner-62.jpg",
-        discount: "Weekend Discount",
-        productTitle: "Tires & Weels",
-        discountDuration: "Only for this week...",
-        from: "from",
-        price: "$ 599.99"
-    },
-    {
-        src: "/images/banner-62.jpg",
-        discount: "Weekend Discount",
-        productTitle: "Tires & Weels",
-        discountDuration: "Only for this week...",
-        from: "from",
-        price: "$ 599.99"
-    },
-    ,
-    {
-        src: "/images/banner-62.jpg",
-        discount: "Weekend Discount",
-        productTitle: "Tires & Weels",
-        discountDuration: "Only for this week...",
-        from: "from",
-        price: "$ 599.99"
-    }
-]
+import {Button, Divider} from "antd"
+import PorductEl from "../product-list"
+
+
 const WeeklyDiscountProduct = ()=>{
-    const  timer = ()=>{
-        var counter = 60
-        setInterval(()=>{
-            //document.write(counter--)
-        }, 1000)
-    }
+    const productData = [
+        {
+            src: "/images/banner-62.jpg",
+            discount: "Weekend Discount",
+            productTitle: "Tires & Weels",
+            discountDuration: "Only for this week...",
+            from: "from",
+            price: "$ 599.99"
+        },
+        {
+            src: "/images/banner-62.jpg",
+            discount: "Weekend Discount",
+            productTitle: "Tires & Weels",
+            discountDuration: "Only for this week...",
+            from: "from",
+            price: "$ 599.99"
+        },
+        ,
+        {
+            src: "/images/banner-62.jpg",
+            discount: "Weekend Discount",
+            productTitle: "Tires & Weels",
+            discountDuration: "Only for this week...",
+            from: "from",
+            price: "$ 599.99"
+        }
+    ]
     return (
         <>
             <div className="py-7 flex gap-5">
                 {
                     productData.map((item,index)=>{
                         return (
-                                <div className="relative w-4/12">
+                                <div className="relative w-4/12" key={index}>
                                     <Image src={item.src} width={374} height={198} className=" rounded-xl" />
                                     <div className="absolute top-0 left-0 p-7">
                                         <h1 className="mb-2">{item.discount}</h1>
@@ -89,6 +86,8 @@ const WeeklyDiscountProduct = ()=>{
                     </Button>
                 </div>
             </div>
+            <Divider />
+            <PorductEl />
         </>
 
     )
