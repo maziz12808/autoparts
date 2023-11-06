@@ -251,11 +251,13 @@ const LayoutEl = ({children,title})=>{
       // MARKUP
       const Menu = ({menu,className=null})=>{
         return menu.map((item,index)=>{
-            return (<li key={index}>
-                        <Link href={item.href} legacyBehavior>
-                            <a className={className}>{item.label}</a>
-                        </Link>
-                    </li>)
+            return (
+                <li key={index}>
+                    <Link href={item.href} legacyBehavior>
+                        <a className={className}>{item.label}</a>
+                    </Link>
+                </li>
+            )
         })
       }
 
