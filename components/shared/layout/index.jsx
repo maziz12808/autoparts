@@ -347,10 +347,12 @@ const LayoutEl = ({children,title})=>{
                                 icon={<UserOutlined style={{fontSize: 20}} />}
                                 className="flex items-center text-white hover:text-white"
                             >
-                                <div className="flex flex-col text-xs justify-center gap-0">
-                                    <span className="text-[#717C82]">Signin</span>
-                                    <span className="ml-2">Account</span>
-                                </div>
+                                <Link href="/signup" legacyBehavior>
+                                    <a className="flex flex-col text-xs justify-center gap-0">
+                                        <span className="text-[#717C82]">Signin</span>
+                                        <span className="ml-2">Account</span>
+                                    </a>
+                                </Link>
                             </Button>
                             <Badge size="small" count={0} showZero color="#F85900">
                                 <HeartOutlined style={{color: "white",fontSize:25,fontWeight:"bold"}} />
