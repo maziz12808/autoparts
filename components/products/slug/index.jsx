@@ -590,7 +590,7 @@ const SlugEL = ({title})=>{
                 >
                     {
                         productsDetaeil.map((item,index)=>(
-                            <SwiperSlide>
+                            <SwiperSlide key={index}>
                                 <div 
                                     className="relative flex flex-col gap-y-1 select-none" key={index} 
                                     onMouseEnter={()=> showIcon(index)}

@@ -64,19 +64,19 @@ const HomeProducts = ()=>{
         >
             {
                 product.map((item,index)=>(
-                    <SwiperSlide>
-                    <div className="text-center mt-3 select-none px-10" key={index}>
-                        <Link href={item.href}>
-                            <Image 
-                                src={item.src} 
-                                width={200} 
-                                height={200} 
-                                alt="body" 
-                                className="mx-auto" 
-                            />
-                            <h1 className="text-sm font-medium hover:text-orange-500">{item.title}</h1>
-                        </Link>
-                    </div>
+                    <SwiperSlide key={index}>
+                        <div className="text-center mt-3 select-none px-10">
+                            <Link href={item.href}>
+                                <Image 
+                                    src={item.src} 
+                                    width={200} 
+                                    height={200} 
+                                    alt="body" 
+                                    className="mx-auto" 
+                                />
+                                <h1 className="text-sm font-medium hover:text-orange-500">{item.title}</h1>
+                            </Link>
+                        </div>
                     </SwiperSlide>
                 ))
             }

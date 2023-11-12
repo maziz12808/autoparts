@@ -106,9 +106,11 @@ const Hero = ()=>{
             <div className="flex gap-8 px-[3%] py-[1.5%]">
                 {
                     feature.map((item,index)=>{
-                        return <p key={index} className="text-sm text-slate-600">
-                                    {item.icon }{item.text }
-                                </p>
+                        return (
+                            <p key={index} className="text-sm text-slate-600">
+                                {item.icon }{item.text }
+                            </p>
+                        )
                     })
                 }
             </div>

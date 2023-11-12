@@ -167,7 +167,7 @@ const ProductsEl = ()=>{
                 >
                 {
                     productsDetaeil.map((item,index)=>(
-                        <SwiperSlide>
+                        <SwiperSlide key={index}>
                             <div 
                                 className="relative flex flex-col gap-y-2 select-none pr-9" key={index} 
                                 onMouseEnter={()=> showIcon(index)}

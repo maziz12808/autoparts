@@ -61,6 +61,7 @@ const Filters = ()=>{
                 {
                     filterByColor.map((item,index)=>(
                         <div 
+                            key={index}
                             className="flex items-center justify-between" 
                             onMouseOver={()=> showCheckIcon(index)} 
                             onMouseLeave={hideCheckIcon}

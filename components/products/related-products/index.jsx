@@ -139,7 +139,8 @@ const RelatedProducts = ()=>{
                 {
                     productsDetaeil.map((item,index)=>(
                         <div 
-                            className="relative flex flex-col gap-y-3" key={index} 
+                        key={index}
+                            className="relative flex flex-col gap-y-3"  
                             onMouseEnter={()=> showIcon(index)}
                             onMouseLeave={()=> hideIcon()}
                         >

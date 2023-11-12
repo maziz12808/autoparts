@@ -430,11 +430,13 @@ const LayoutEl = ({children,title})=>{
                             <div className="flex flex-col gap-2">
                                 {
                                     letUsHelpYou.map((item,index)=>{
-                                        return <Link href={item.href} legacyBehavior key={index}>
+                                        return (
+                                            <Link href={item.href} legacyBehavior key={index}>
                                                 <a className="text-xs hover:underline hover:underline-offset-4">
                                                     {item.label}
                                                 </a>
                                             </Link>
+                                        )
                                     })
                                 }
                             </div>
@@ -444,11 +446,13 @@ const LayoutEl = ({children,title})=>{
                             <div className="flex flex-col gap-2">
                                 {
                                     makeMoneywithUs.map((item,index)=>{
-                                        return <Link href={item.href} key={index} legacyBehavior>
-                                                    <a className="text-xs hover:underline hover:underline-offset-4">
-                                                        {item.label}
-                                                    </a>
+                                        return (
+                                            <Link href={item.href} key={index} legacyBehavior>
+                                                <a className="text-xs hover:underline hover:underline-offset-4">
+                                                    {item.label}
+                                                </a>
                                             </Link>
+                                        )
                                     })
                                 }
                             </div>
@@ -459,11 +463,13 @@ const LayoutEl = ({children,title})=>{
                             <div className="flex flex-col gap-2">
                                 {
                                     getToKnowUs.map((item,index)=>{
-                                        return <Link href={item.href} key={index}legacyBehavior>
+                                        return (
+                                            <Link href={item.href} key={index}legacyBehavior>
                                                 <a className="text-xs hover:underline hover:underline-offset-4">
                                                     {item.label}
                                                 </a>
                                             </Link>
+                                        )
                                     })
                                 }
                             </div>
