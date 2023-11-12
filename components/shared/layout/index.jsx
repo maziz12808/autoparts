@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { 
     Dropdown,
     Space,
@@ -9,7 +10,8 @@ import {
     Form,
     Select,
     Badge,
-    Avatar
+    Avatar,
+    Drawer
 } from "antd"
 import { 
     DownOutlined,
@@ -23,8 +25,7 @@ import {
     YoutubeOutlined,
     InstagramOutlined,
     DingtalkOutlined,
-    FacebookOutlined,
-    FacebookFilled
+    CloseOutlined
 } from "@ant-design/icons"
 
 const { Search } = Input;
@@ -543,7 +544,7 @@ const LayoutEl = ({children,title})=>{
             </footer>
 
             {/* Account Drawer */}
-            <div className="fixed bottom-0 left-[8%] w-10/12 p-0">
+            <div className="fixed bottom-0 left-[8%] z-50 w-10/12 p-0">
                 <Drawer 
                     placement="bottom" 
                     closable={false}
