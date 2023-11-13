@@ -1,16 +1,65 @@
 import LayoutEl from "../shared/layout"
+import axios from "axios"
+import { useState } from "react"
+const http = axios.create({
+    withCredentials: true
+})
 import {
     Form,
     Input,
-    Button
+    Button,
+    message
 } from "antd"
 const {Item} = Form
+
 const Signup = ()=>{
-    const login = (value)=>{
-        console.log(value);
+    // Const
+    const [error,setError] = useState({
+        state: "",
+        message: ""
+    })
+    const [loginError,setLoginError] = useState({
+        state: "",
+        message: ""
+    })
+
+    // Functions
+    const login = async (value)=>{
+        try{
+            const {data:{login}} = await http.post("/api/auth/login",value)
+            if(login) message.success("Login Success")
+        }
+        catch(err)
+        {
+            console.log(err.response.status);
+            if(err.response.status == 404 || err.response.status === 401) 
+            setLoginError({state: "error",message: "Invalid Email Or Password"})
+
+            setTimeout(()=>{
+                setLoginError({
+                    state: "",
+                    message: ""
+                })
+            },3000)
+        }
     }
-    const signup = (value)=>{
-        console.log(value);
+    const signup = async (value)=>{
+        try{
+            await http.post("/api/auth/signup",value) 
+
+        }
+        catch(err)
+        {
+            if(err.response.status == 409) setError({state: "error",message: err.response.data})
+
+            setTimeout(()=>{
+                setError({
+                    state: "",
+                    message: ""
+                })
+            },3000)
+
+        }
     }
     return (
         <LayoutEl>
@@ -36,7 +85,9 @@ const Signup = ()=>{
                         </Item>
                         <Item
                             name="password" 
-                            label="Password"
+                            label="Password" 
+                            validateStatus={loginError.state} 
+                            help={loginError.message}
                             rules={[
                                 {
                                     required: true,
@@ -74,6 +125,8 @@ const Signup = ()=>{
                         <Item
                             name="email" 
                             label="Email" 
+                            validateStatus={error.state} 
+                            help={error.message}
                             rules={[
                                 {
                                     type: 'email',
