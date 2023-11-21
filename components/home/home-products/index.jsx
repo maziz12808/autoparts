@@ -11,7 +11,7 @@ const HomeProducts = ()=>{
             href: "product-category"
         },
         {
-            title: "Brake Disks & pads",
+            title: "Brake Disks pads",
             src: "/images/brakes.png",
             href: "product-category"
         },
