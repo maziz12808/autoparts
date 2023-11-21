@@ -114,7 +114,6 @@ const Products = ()=>{
         }
     }
     const prodImageTitleDesign = (text,obj)=>{
-        console.log(obj);
         return (
             <div className="flex gap-1 items-center">
                 {
@@ -164,7 +163,8 @@ const Products = ()=>{
     {
         title: 'title',
         dataIndex: 'title',
-        key: 'title'
+        key: 'title',
+        ellipsis: true
     },
     {
         title: 'category',
@@ -190,6 +190,7 @@ const Products = ()=>{
         title: 'description',
         dataIndex: 'description',
         key: 'description',
+        ellipsis: true
     },
     {
         title: 'Action',
@@ -214,7 +215,7 @@ const Products = ()=>{
         finally{
             setFormData(null)
             productForm.resetFields()
-            setOpenDrawer(false)
+            //setOpenDrawer(false)
         }
     }    
     const onProduct = async (values)=>{
@@ -270,14 +271,6 @@ const Products = ()=>{
                     layout="vertical" 
                     className="grid grid-cols-2 gap-x-3" 
                     form={productForm} 
-                    initialValues={{
-                        title: "wap",
-                        category: "body parts",
-                        discount: 23,
-                        price: 34000,
-                        quantity: 200,
-                        description: "this is desc"
-                    }}
                 >
                     <Item 
                         name="title" 
