@@ -8,7 +8,8 @@ import {
     FullscreenOutlined
 } from "@ant-design/icons"
 
-const RelatedProducts = ()=>{
+const RelatedProducts = ({data})=>{
+    console.log(data);
     // CONST
     const [iconIndex,setIconIndex] = useState(false)
     const productsDetaeil = [
@@ -138,7 +139,7 @@ const RelatedProducts = ()=>{
         <div className="w-9/12">
             <div className="grid grid-cols-4 gap-2 px-5">
                 {
-                    productsDetaeil.map((item,index)=>(
+                    data.map((item,index)=>(
                         <div 
                         key={index}
                             className="relative flex flex-col gap-y-3"  
@@ -154,7 +155,7 @@ const RelatedProducts = ()=>{
                                     .join("-")}
                                 >
                                 <Image 
-                                    src={item.src} 
+                                    src={process.env.NEXT_PUBLIC_AWS_S3_BUCKET_URL+item.image} 
                                     width={300} 
                                     height={300} 
                                     alt="image-1-13-300x300" 
@@ -165,7 +166,7 @@ const RelatedProducts = ()=>{
                                 danger 
                                 className="absolute top-0 text-xs h-5 px-1 flex items-center" 
                                 style={{borderRadius: 3}}
-                            >{item.discount}</Button>
+                            >10%</Button>
                             <Button 
                                 shape="circle" 
                                 size="middle"
@@ -198,10 +199,10 @@ const RelatedProducts = ()=>{
                             <div className="flex justify-between pr-2">
                                 <div>
                                     <p className="text-sm font-medium opacity-70 line-through">
-                                        {item.originalPrice}
+                                        ${item.price}
                                     </p>
                                     <p className="font-medium text-orange-700">
-                                        {item.discountPrice}
+                                        ${item.price}
                                     </p>
                                 </div>
                                 <Button 
@@ -211,21 +212,21 @@ const RelatedProducts = ()=>{
                                 />
                             </div>
                             <span className="text-xs font-medium text-[#22C55E]">
-                                {item.stock}
+                                {item.quantity > 0 ? "In Stock" : "Out Of Stock"}
                             </span>
                             {
                                 iconIndex == index ? 
-                                        <div 
-                                            className="absolute right-3 top-10 
-                                            animate__animated animate__slideInRight animate__faster">
-                                            <Button 
-                                                shape="circle" 
-                                                size="middle"
-                                                icon={<FullscreenOutlined />}
-                                                className="bg-white border-0" 
-                                                style={{color: "black"}}
-                                            />
-                                        </div> : null
+                                <div 
+                                    className="absolute right-3 top-10 
+                                    animate__animated animate__slideInRight animate__faster">
+                                    <Button 
+                                        shape="circle" 
+                                        size="middle"
+                                        icon={<FullscreenOutlined />}
+                                        className="bg-white border-0" 
+                                        style={{color: "black"}}
+                                    />
+                                </div> : null
                             }
                         </div>
                     ))

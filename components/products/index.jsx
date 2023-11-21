@@ -8,7 +8,8 @@ import {
     UnorderedListOutlined
 } from "@ant-design/icons"
 
-const Products = ()=>{
+const Products = ({productDetail})=>{
+
     const SortOption = [
         {
             label: "Default Sort",
@@ -89,7 +90,7 @@ const Products = ()=>{
                 </div>
                 <div className="py-3 flex">
                     <Filters />
-                    <RelatedProducts />
+                    <RelatedProducts data={productDetail} />
                 </div>
                 
             </div>

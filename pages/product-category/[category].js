@@ -1,7 +1,9 @@
 import Products from "@/components/products"
 import axios from 'axios';
-const prod = ()=> {
-    return <Products />
+axios.defaults.baseURL = "http://localhost:3000/"
+
+const prod = ({data})=> {
+    return <Products productDetail={data} />
 }
 
 export default prod
@@ -26,9 +28,19 @@ export const getStaticPaths = ()=>{
     }
 }
 
-export const getStaticProps = ({params})=>{
-    
-    return {
-        props: {data: "aziz"}
+export const getStaticProps = async ({params})=>{
+    const {category } = params
+    try{
+        const {data } = await axios.get(`/api/products?category=${category}`)
+        return {
+            props: {data}
+        }
     }
+    catch(err)
+    {
+        return {
+            props: {data: "no data"}
+        }
+    }
+    
 }
