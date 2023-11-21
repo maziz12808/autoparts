@@ -1,19 +1,27 @@
 import AdminLayout from "@/components/shared/admin-layout"
-import { useEffect, useState } from "react"
-import Image from "next/image"
+import { useState } from "react"
+//import Image from "next/image"
 import axios from "axios" 
 import useSWR, {mutate} from "swr"
+import AWS from "@/module/aws.module"
 import { 
     Button,
     Drawer,
     Form,
     Input,
     message,
-    Table
+    Table,
+    Progress,
+    Image
 } from "antd"
-import { EditOutlined,DeleteOutlined } from "@ant-design/icons"
+import { 
+    EditOutlined,
+    DeleteOutlined, 
+    CloudUploadOutlined 
+} from "@ant-design/icons"
 
 const { Item } = Form
+
 const fecher = async (api)=>{
     try {
         const {data} = await axios.get(api)
@@ -29,9 +37,13 @@ const Products = ()=>{
     
     const [openDrawer,setOpenDrawer] = useState(false)
     const [formData,setFormData] = useState(null)
+    const [progress,setprogress] = useState(0)
+    const [currentPage,setCurrentPage] = useState(1)
+    const [pageSize,setPageSize] = useState(10)
+    const [percentage,setPercentage] = useState(0)
     const [productForm] = Form.useForm()
-    const { data:allProduct, error, isLoading } = useSWR("/api/admin/products",fecher)
-  
+    const { data:allProduct, error, isLoading } = useSWR(`/api/admin/products?page=${currentPage}&limit=${pageSize}`,fecher,{ refreshInterval: 1000 })
+    const s3 = new AWS.S3()
     const toolbar = [
         <Button key={1} type="text" onClick={()=> setOpenDrawer(!openDrawer)}>Add Products</Button>
     ]
@@ -54,7 +66,6 @@ const Products = ()=>{
         try{
             const data = await axios.delete(`/api/admin/products/${pid}`);
             mutate("/api/admin/products")
-            console.log(data);
         }
         catch(err)
         {
@@ -69,20 +80,91 @@ const Products = ()=>{
             </div>
         )
     }
+    const onProductImageUpload = (id)=>{
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*"
+        input.click()
+        input.onchange = async ()=>{
+            setprogress(id)
+            const file = input.files[0];
+            input.remove()
+            const uploader = s3.upload({
+                Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET,
+                Key: "products-images/"+file.name,
+                Body: file,
+                ACL: 'public-read'
+            })
+            uploader.on("httpUploadProgress",({total,loaded})=>{
+                const percent = Math.floor((loaded*100)/total)
+                setPercentage(percent)
+            })
+            try{
+                const fileData = await uploader.promise();
+                await  axios.put(`/api/admin/products/${id}`,{image:fileData.Key})
+                mutate("/api/admin/products")
+            }
+            catch(err)
+            {
+                console.log(err);
+            }
+            finally{
+                setprogress(0)
+            }
+        }
+    }
     const prodImageTitleDesign = (text,obj)=>{
+        console.log(obj);
         return (
-            <div className="flex gap-1">
-                <Image src="/images/no-image.png" width={100} height={100} alt="no-image" />
-                <h1 className="font-semibold">{text}</h1>
+            <div className="flex gap-1 items-center">
+                {
+                    progress == obj._id ? <Progress type="circle" percent={percentage} size={40} /> :
+                    <Image.PreviewGroup
+                        items={[
+                            obj.image ? 
+                            process.env.NEXT_PUBLIC_AWS_S3_BUCKET_URL+obj.image 
+                            : 
+                            "/images/no-image.png"
+                        ]}
+                    >
+                        <Image 
+                            src={
+                                obj.image ? 
+                                process.env.NEXT_PUBLIC_AWS_S3_BUCKET_URL+obj.image 
+                                : 
+                                "/images/no-image.png"
+                            }
+                            width={70} 
+                            height={30}
+                            alt={`no-image${obj._id}`} 
+                        />
+                    </Image.PreviewGroup>
+                }
+                {
+                    progress == 0 ? 
+                    <Button 
+                        size="large" 
+                        onClick={()=> onProductImageUpload(obj._id)} 
+                        icon={<CloudUploadOutlined />} 
+                        type="text" 
+                        style={{background: "inherit"}} 
+                    /> :
+                    null
+                }
             </div>
         )
     }
     const columns = [
     {
+        title: 'Image',
+        dataIndex: 'image',
+        key: 'image',
+        render: prodImageTitleDesign
+    },
+    {
         title: 'title',
         dataIndex: 'title',
-        key: 'title',
-        render: prodImageTitleDesign
+        key: 'title'
     },
     {
         title: 'category',
@@ -116,7 +198,6 @@ const Products = ()=>{
         render: editDeleteDesign
     }
     ];
-    
     // *******************************FUNCTIONS***********************************************
     
     const onProductSave = async (values)=>{
@@ -147,7 +228,7 @@ const Products = ()=>{
             console.log(err);
         }
         finally{
-            setOpenDrawer(false)
+            //setOpenDrawer(false)
         }
     }
 
@@ -157,10 +238,23 @@ const Products = ()=>{
         setOpenDrawer(false)
         
     }
-
+    const onPagination = (obj)=>{
+        setPageSize(obj.pageSize)
+        setCurrentPage(obj.current)
+    }
     return (
         <AdminLayout title="products" toolbar={toolbar}>
-            <Table dataSource={allProduct} columns={columns} />
+            <Table 
+                dataSource={allProduct && allProduct.products} 
+                columns={columns} 
+                onChange={onPagination} 
+                size="small" 
+                pagination={{total: allProduct && allProduct.total}}
+                scroll={{
+                    x: 1000,
+                    y: 430,
+                }}
+            />
             <Drawer
                 title="Basic Drawer"
                 placement="right" 
@@ -171,7 +265,20 @@ const Products = ()=>{
                 key="right"
                 className="text-center"
             >
-                <Form onFinish={formData ? onProductSave : onProduct} layout="vertical" className="grid grid-cols-2 gap-x-3" form={productForm}>
+                <Form 
+                    onFinish={formData ? onProductSave : onProduct} 
+                    layout="vertical" 
+                    className="grid grid-cols-2 gap-x-3" 
+                    form={productForm} 
+                    initialValues={{
+                        title: "wap",
+                        category: "body parts",
+                        discount: 23,
+                        price: 34000,
+                        quantity: 200,
+                        description: "this is desc"
+                    }}
+                >
                     <Item 
                         name="title" 
                         label="Product Title"

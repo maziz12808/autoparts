@@ -11,6 +11,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "antd": "^5.10.2",
+    "aws-sdk": "^2.1499.0",
     "axios": "^1.6.1",
     "bcrypt": "^5.1.1",
     "boxicons": "^2.1.4",
