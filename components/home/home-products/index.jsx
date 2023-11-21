@@ -8,32 +8,32 @@ const HomeProducts = ()=>{
         {
             title: "Body Parts",
             src: "/images/body.png",
-            href: "product"
+            href: "product-category"
         },
         {
             title: "Brake Disks & pads",
             src: "/images/brakes.png",
-            href: "/product"
+            href: "product-category"
         },
         {
             title: "Engin Parts",
             src: "/images/transmission.png",
-            href: "product"
+            href: "product-category"
         },
         {
             title: "Filters",
             src: "/images/filters.png",
-            href: "product"
+            href: "product-category"
         },
         {
             title: "Engin Parts",
             src: "/images/transmission.png",
-            href: "product"
+            href: "product-category"
         },
         {
             title: "Filters",
             src: "/images/filters.png",
-            href: "product"
+            href: "product-category"
         }
     ]
     return (
@@ -66,7 +66,7 @@ const HomeProducts = ()=>{
                 product.map((item,index)=>(
                     <SwiperSlide key={index}>
                         <div className="text-center mt-3 select-none px-10">
-                            <Link href={item.href}>
+                            <Link href={`${item.href}/${item.title}`}>
                                 <Image 
                                     src={item.src} 
                                     width={200} 

@@ -4,7 +4,7 @@ import Image from "next/image"
 import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+import { FreeMode } from 'swiper/modules';
 
 import { 
     Button, 

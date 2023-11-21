@@ -9,11 +9,13 @@ import {
 import { useState } from "react"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-
+import { useRouter } from "next/router"
 
 const ProductsEl = ()=>{
     // CONST
     const [iconIndex,setIconIndex] = useState(false)
+    const router = useRouter()
+    console.log("router",router);
     const productsDetaeil = [
         {
             title: "10.1 CD/DVD Multimedia Receiver with Apple CarPlay and Android Auto CAR8000",
@@ -185,7 +187,7 @@ const ProductsEl = ()=>{
                                         src={item.src} 
                                         width={300} 
                                         height={300} 
-                                        alt="image-1-13-300x300" 
+                                        alt={item.src}
                                     />
                                 </Link>
                                 <Button

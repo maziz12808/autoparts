@@ -12,7 +12,7 @@ const Products = ()=>{
     const SortOption = [
         {
             label: "Default Sort",
-            value: "defaultSsort"
+            value: "defaultSort"
         },
         {
             label: "DeSort By Popularity",

@@ -1,12 +1,13 @@
 import Image from "next/image"
 import Link from "next/link"
+import { useState } from "react"
 import { Button } from "antd"
 import {
     HeartOutlined,
     ShoppingCartOutlined,
     FullscreenOutlined
 } from "@ant-design/icons"
-import { useState } from "react"
+
 const RelatedProducts = ()=>{
     // CONST
     const [iconIndex,setIconIndex] = useState(false)

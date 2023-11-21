@@ -1,2 +1,23 @@
 import Products from "@/components/products";
-export default Products
+
+const Product = ()=>{
+    return <Products />
+}
+
+export default Product
+
+export const getStaticPaths = (req)=>{
+    return {
+        paths: {
+            params: {},
+            fallback: false
+        }
+    }
+}
+
+export function getStaticProps(context) {
+    console.log(req);
+    return {
+        props: {data: ""},
+    }
+}
