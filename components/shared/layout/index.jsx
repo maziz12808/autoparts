@@ -8,6 +8,7 @@ import {
     Input,
     Select,
     Badge,
+    Badge
 } from "antd"
 import { 
     DownOutlined,
@@ -21,7 +22,6 @@ import {
     YoutubeOutlined,
     InstagramOutlined,
     DingtalkOutlined,
-    FacebookFilled
 } from "@ant-design/icons"
 
 const { Search } = Input;
@@ -266,7 +266,8 @@ const LayoutEl = ({children,title})=>{
             <Head>
                 <title>{title}</title>
             </Head>
-            
+
+            {/* Start Header   */}
             <header>
                 <div className="bg-[#132530]">
                     <div 
@@ -317,10 +318,10 @@ const LayoutEl = ({children,title})=>{
                                 src="/images/logo-auto-part.png" 
                                 width={176} 
                                 height={48} 
+                                width={176} height={48} 
                                 alt="logo-auto-part" 
                             />
                         </div>
-
                         <div className="flex gap-3 items-center">
                             <Button 
                                 style={{color: "white"}} 
@@ -387,8 +388,7 @@ const LayoutEl = ({children,title})=>{
                     </nav>
                 </div>
             </header>
-        
-                
+            {/* End Header */}
             <section className="px-[3%]">
             
                 {
@@ -398,20 +398,32 @@ const LayoutEl = ({children,title})=>{
         
             <footer className="bg-[#1B1F22] text-[#FFFFFF] py-[3%]">
                 <div className="px-[3%] border-b border-b-gray-700">
-                    <div class="grid grid-cols-4 gap-5 border-b pb-16 border-b-gray-700 ">
+                    <div className="grid grid-cols-4 gap-5 border-b pb-16 border-b-gray-700 ">
                         <div className="flex flex-col gap-5 border-r-2 border-r-gray-700 ">
-                            <h1 className="text-sm font-semibold text-[#FFFFFF]">Do You Need Help ?</h1>
+                            <h1 className="text-sm font-semibold text-[#FFFFFF]">
+                                Do You Need Help ?
+                            </h1>
                             <div>
                                 <p className="text-xs text-[#FFFFFF]">
-                                    Autoseligen syr. Nek diarask fröbomba. Nör antipol kynoda nynat. Pressa fåmoska.
+                                    Autoseligen syr. Nek diarask fröbomba. Nör antipol kynoda nynat. 
+                                    Pressa fåmoska.
                                 </p>
-                                <h1 className="font-semibold text-[#F85900] text-2xl flex flex-col gap-0">
+                                <h1 
+                                    className="font-semibold text-[#F85900] 
+                                                text-2xl flex flex-col gap-0"
+                                >
                                     0 800 300-353 
-                                    <span className="text-[10px] font-semibold p-0 m-0 text-[#717C82]">Free from fixed and mobile phones in USA.</span>
+                                    <span className="text-[10px] font-semibold p-0 m-0 text-[#717C82]">
+                                        Free from fixed and mobile phones in USA.
+                                    </span>
                                 </h1>
-                                <h1><span className="text-[#717C82]">Email:</span> info@example.com</h1>
+                                <h1><span className="text-[#717C82]">
+                                    Email:</span> info@example.com
+                                </h1>
                                 <h1 className="flex flex-col font-semibold text-sm">
-                                    <span className="text-[#717C82]  text-xs">Call Center hours</span> Mon-Sun 09:00-19:00
+                                    <span className="text-[#717C82]  text-xs">
+                                        Call Center hours
+                                    </span> Mon-Sun 09:00-19:00
                                 </h1>
                             </div>
                         </div>
@@ -448,13 +460,13 @@ const LayoutEl = ({children,title})=>{
                             <h1 className="text-sm font-semibold">Get to Know Us</h1>
                             <div className="flex flex-col gap-2">
                                 {
-                                    getToKnowUs.map((item,index)=>(
-                                        <Link href={item.href} legacyBehavior key={index}>
-                                            <a className="text-xs hover:underline hover:underline-offset-4">
-                                                {item.label}
-                                            </a>
-                                        </Link>
-                                    ))
+                                    getToKnowUs.map((item,index)=>{
+                                        return <Link href={item.href} key={index}legacyBehavior>
+                                                <a className="text-xs hover:underline hover:underline-offset-4">
+                                                    {item.label}
+                                                </a>
+                                            </Link>
+                                    })
                                 }
                             </div>
                         </div>
@@ -466,8 +478,8 @@ const LayoutEl = ({children,title})=>{
                             <Button 
                                 type="text" 
                                 style={{color: "white"}} 
-                                className="bg-gray-700 rounded-full" 
-                                icon={<FacebookFilled />} 
+                                className="bg-gray-700 rounded-full"
+                                icon={<i className='bx bxl-facebook' /> }
                             />
                             <Button 
                                 type="text" 
