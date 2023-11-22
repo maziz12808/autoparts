@@ -14,13 +14,12 @@ const Login = ()=>{
    
     const login = async (value)=>{
         try{
-            const data = await axios({
+            await axios({
                 method: "POST",
                 url: "http://localhost:3000/api/admin/auth/login",
                 data: value
             })
-            console.log(data);
-            router.push("/admin")
+            router.push("/admin/dashboard")
         }
         catch(err)
         {

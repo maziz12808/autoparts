@@ -11,7 +11,23 @@ export const  middleware = async (req)=>{
             const http = await fetch(`${process.env.END_POINT}/api/token/${value}`)
             if(http.status !== 200) return res.next()
             
-            return res.redirect(new URL("/admin",req.url))
+            return res.redirect(new URL("/admin/dashboard",req.url))
+        }
+        catch(err)
+        {
+            return res.next()
+        }
+    }
+
+    if(req.nextUrl.pathname.startsWith('/admin/signup'))
+    {
+        if(!auth) return  res.next()
+        try{
+            const {value} =  req.cookies.get("authToken");
+            const http = await fetch(`${process.env.END_POINT}/api/token/${value}`)
+            if(http.status !== 200) return res.next()
+            
+            return res.redirect(new URL("/admin/dashboard",req.url))
         }
         catch(err)
         {
@@ -19,7 +35,7 @@ export const  middleware = async (req)=>{
         }
     }
     
-    if(req.nextUrl.pathname.startsWith('/admin'))
+    if(req.nextUrl.pathname.startsWith('/admin/dashboard'))
     {
         if(!auth) return res.redirect(new URL("/admin/login",req.url))
         try{
@@ -44,5 +60,5 @@ export const  middleware = async (req)=>{
 } 
 
 export const config = {
-    matcher: ["/admin","/admin/login"]
+    matcher: ["/admin/dashboard","/admin/login","/admin/signup"]
 }

@@ -1,6 +1,5 @@
 import AdminLayout from "@/components/shared/admin-layout"
 import { useState } from "react"
-//import Image from "next/image"
 import axios from "axios" 
 import useSWR, {mutate} from "swr"
 import AWS from "@/module/aws.module"
@@ -12,8 +11,7 @@ import {
     message,
     Table,
     Progress,
-    Image,
-    Select
+    Image
 } from "antd"
 import { 
     EditOutlined,
@@ -22,19 +20,8 @@ import {
 } from "@ant-design/icons"
 
 const { Item } = Form
-const { Option } = Select
 
 const fecher = async (api)=>{
-    try {
-        const {data} = await axios.get(api)
-        return data
-    }
-    catch(err)
-    {
-       return err
-    }
-}
-const categoryFatcher = async (api)=>{
     try {
         const {data} = await axios.get(api)
         return data
@@ -54,22 +41,15 @@ const Products = ()=>{
     const [pageSize,setPageSize] = useState(10)
     const [percentage,setPercentage] = useState(0)
     const [productForm] = Form.useForm()
-    const { data:allProduct, isLoading } = useSWR(`/api/admin/products?page=${currentPage}&limit=${pageSize}`,fecher,{ refreshInterval: 1000 })
+    const { data:category, error, isLoading } = useSWR(`/api/admin/products-category`,fecher,{ refreshInterval: 1000 })
+    console.log(category);
     const s3 = new AWS.S3()
     const toolbar = [
-        <Button key={1} type="text" onClick={()=> setOpenDrawer(!openDrawer)}>Add Products</Button>
+        <Button key={1} type="text" onClick={()=> setOpenDrawer(!openDrawer)}>Add Category</Button>
     ]
     const defaultValue = {
-        title: "product title",
         category: "body parts",
-        discount: 23,
-        price: 40000,
-        quantity: 200,
-        description: "this is description"
     }
-    
-    // Get Category
-    const {data:category,error} = useSWR("/api/admin/products-category",categoryFatcher)
     // Edit Product
     const editProduct = (productItem)=>{
         setFormData(productItem)
@@ -79,8 +59,8 @@ const Products = ()=>{
     // Edit Product
     const deleteProduct = async (pid)=>{
         try{
-            const data = await axios.delete(`/api/admin/products/${pid}`);
-            mutate("/api/admin/products")
+            const data = await axios.delete(`/api/admin/products-category/${pid}`);
+            mutate("/api/admin/products-category")
         }
         catch(err)
         {
@@ -116,8 +96,8 @@ const Products = ()=>{
             })
             try{
                 const fileData = await uploader.promise();
-                await  axios.put(`/api/admin/products/${id}`,{image:fileData.Key})
-                mutate("/api/admin/products")
+                await  axios.put(`/api/admin/products-category/${id}`,{image:fileData.Key})
+                mutate("/api/admin/products-category")
             }
             catch(err)
             {
@@ -176,36 +156,9 @@ const Products = ()=>{
         render: prodImageTitleDesign
     },
     {
-        title: 'title',
-        dataIndex: 'title',
-        key: 'title',
-        ellipsis: true
-    },
-    {
         title: 'category',
         dataIndex: 'category',
         key: 'category',
-    },
-    {
-        title: 'discount',
-        dataIndex: 'discount',
-        key: 'discount',
-    },
-    {
-        title: 'price',
-        dataIndex: 'price',
-        key: 'price',
-    },
-    {
-        title: 'quantity',
-        dataIndex: 'quantity',
-        key: 'quantity',
-    },
-    {
-        title: 'description',
-        dataIndex: 'description',
-        key: 'description',
-        ellipsis: true
     },
     {
         title: 'Action',
@@ -218,8 +171,8 @@ const Products = ()=>{
     
     const onProductSave = async (values)=>{
         try{
-            await axios.put(`/api/admin/products/${formData._id}`,values)
-            mutate("/api/admin/products")
+            await axios.put(`/api/admin/products-category/${formData._id}`,values)
+            mutate("/api/admin/products-category")
             setFormData(null)
             message.success("Product updated")
         }
@@ -234,10 +187,9 @@ const Products = ()=>{
         }
     }    
     const onProduct = async (values)=>{
-        console.log(values);
         try{
-            await axios.post("/api/admin/products",values)
-            mutate("/api/admin/products")
+            await axios.post("/api/admin/products-category",values)
+            mutate("/api/admin/products-category")
             message.success("Product added")
         }
         catch(err)
@@ -262,20 +214,15 @@ const Products = ()=>{
     return (
         <AdminLayout title="products" toolbar={toolbar}>
             <Table 
-                dataSource={allProduct && allProduct.products} 
+                dataSource={category && category} 
                 columns={columns} 
                 onChange={onPagination} 
                 size="small" 
-                pagination={{total: allProduct && allProduct.total}}
-                scroll={{
-                    x: 1000,
-                    y: 430,
-                }}
+                pagination={{total: 20}}
             />
             <Drawer
-                title="Basic Drawer"
+                title="Add Category"
                 placement="right" 
-                width={720}
                 closable={false}
                 onClose={onClose}
                 open={openDrawer}
@@ -285,85 +232,22 @@ const Products = ()=>{
                 <Form 
                     onFinish={formData ? onProductSave : onProduct} 
                     layout="vertical" 
-                    className="grid grid-cols-2 gap-x-3" 
                     form={productForm} 
                 >
+                    
                     <Item 
-                        name="title" 
-                        label="Product Title"
+                        name="category" 
+                        label="Products Category"
                         rules={[
-                            {required:true,message: "This field is required!"}
-                        ]} 
-                        className=" col-span-2"
-                    >
+                            {required:true,message: "Category name is required!"}
+                        ]}>
                         <Input 
                             style={{borderRadius: 0}} 
-                            placeholder="Product Title" 
-                            size="middle" 
-                            
+                            placeholder="Products Category" 
+                            size="middle"
                         />
                     </Item>
-
-                    <Item 
-                        label="Category" 
-                        name="category" 
-                        rules={[
-                            {required:true,message: "This field is required!"}
-                        ]} 
-                    >
-                        <Select placeholder="Select Category">
-                            {
-                                category.map((categoryItem,categoryIndex)=>(
-                                    <Option value={categoryItem.category} key={categoryIndex}>{categoryItem.category}</Option>
-                                ))
-                            }
-                            
-                        </Select>
-                    </Item>
-
-                    <Item
-                        name="discount" 
-                        label="Discount"
-                    >
-                        <Input type="number"  placeholder="Discount" />
-                    </Item>
-                    <Item
-                        name="price" 
-                        label="Product Price"
-                        rules={[
-                        {
-                            required: true,
-                            message: 'This field is required!'
-                        }
-                        ]}
-                    >
-                        <Input  placeholder="Product Price" />
-                    </Item>
-                    <Item
-                    name="quantity" 
-                    label="Product Quantity"
-                    rules={[
-                    {
-                        required: true,
-                        message: 'This field is required!'
-                    }
-                    ]}
-                    >
-                        <Input  placeholder="Product Quantity" />
-                    </Item>
-                    <Item
-                        name="description" 
-                        label="Product Desription"
-                        rules={[
-                        {
-                            required: true,
-                            message: 'This field is required!'
-                        }
-                        ]}
-                        className="col-span-2"
-                    >
-                        <Input.TextArea  placeholder="Product Desription" />
-                    </Item>
+                    
                     <Item>
                         {
                             formData ? 
