@@ -2,6 +2,7 @@ import Image from "next/image"
 import {Button, Divider} from "antd"
 import ProductEl from "../products-list"
 
+
 const WeeklyDiscountProduct = ()=>{
     const productData = [
         {
@@ -37,7 +38,7 @@ const WeeklyDiscountProduct = ()=>{
                 {
                     productData.map((item,index)=>{
                         return (
-                                <div className="relative w-4/12">
+                                <div className="relative w-4/12" key={index}>
                                     <Image src={item.src} width={374} height={198} className=" rounded-xl" />
                                     <div className="absolute top-0 left-0 p-7">
                                         <h1 className="mb-2">{item.discount}</h1>

@@ -5,9 +5,11 @@ import HomeProducts from "./home-products";
 const Home = ()=>{
     return (
         <Layout title="Home">
-            <Hero /> 
-            <HomeProducts />
-            <WeeklyDiscountProduct />
+            <div className="px-[3%]">
+                <Hero /> 
+                <HomeProducts />
+                <WeeklyDiscountProduct />
+            </div>
         </Layout>
     )
 }

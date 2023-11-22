@@ -1,13 +1,16 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { 
     Dropdown,
     Space,
     Button,
     Input,
+    Form,
     Select,
-    Badge
+    Badge,
+    Drawer
 } from "antd"
 import { 
     DownOutlined,
@@ -21,11 +24,16 @@ import {
     YoutubeOutlined,
     InstagramOutlined,
     DingtalkOutlined,
+    CloseOutlined
 } from "@ant-design/icons"
 
 const { Search } = Input;
+const { Item } = Form;
 
 const LayoutEl = ({children,title})=>{
+    // States
+    const [openAccountDrawer, setOpenAccountDrawer] = useState(false);
+
     // CONST
     const items = [
         {
@@ -247,9 +255,16 @@ const LayoutEl = ({children,title})=>{
             href: "/best discounts"
         }
     ]
+    
+    const showDrawer = () => {
+        setOpenAccountDrawer(true)
+    };
+    const onClose = () => {
+      setOpenAccountDrawer(false);
+    };
 
-      // MARKUP
-      const Menu = ({menu,className=null})=>{
+    // MARKUP
+    const Menu = ({menu,className=null})=>{
         return menu.map((item,index)=>{
             return (
             <li key={index} >
@@ -258,7 +273,7 @@ const LayoutEl = ({children,title})=>{
                 </Link>
             </li>)
         })
-      }
+    }
 
     return (
         <>
@@ -317,7 +332,6 @@ const LayoutEl = ({children,title})=>{
                                 src="/images/logo-auto-part.png" 
                                 width={176} 
                                 height={48} 
-                                width={176} height={48} 
                                 alt="logo-auto-part" 
                             />
                         </div>
@@ -348,7 +362,8 @@ const LayoutEl = ({children,title})=>{
                                 type="text" 
                                 style={{color: "white"}} 
                                 icon={<UserOutlined style={{fontSize: 20}} />}
-                                className="flex items-center text-white hover:text-white"
+                                className="flex items-center text-white hover:text-white" 
+                                onClick={showDrawer}
                             >
                                 <div className="flex flex-col text-xs justify-center gap-0">
                                     <span className="text-[#717C82]">Signin</span>
@@ -388,7 +403,7 @@ const LayoutEl = ({children,title})=>{
                 </div>
             </header>
             {/* End Header */}
-            <section className="px-[3%]">
+            <section>
             
                 {
                     children
@@ -430,13 +445,15 @@ const LayoutEl = ({children,title})=>{
                             <h1 className="text-sm font-semibold">Let Us Help You</h1>
                             <div className="flex flex-col gap-2">
                                 {
-                                    letUsHelpYou.map((item,index)=>(
-                                        <Link href={item.href} legacyBehavior key={index}>
-                                            <a className="text-xs hover:underline hover:underline-offset-4">
-                                                {item.label}
-                                            </a>
-                                        </Link>
-                                    ))
+                                    letUsHelpYou.map((item,index)=>{
+                                        return (
+                                            <Link href={item.href} legacyBehavior key={index}>
+                                                <a className="text-xs hover:underline hover:underline-offset-4">
+                                                    {item.label}
+                                                </a>
+                                            </Link>
+                                        )
+                                    })
                                 }
                             </div>
                         </div>
@@ -444,13 +461,15 @@ const LayoutEl = ({children,title})=>{
                             <h1 className="text-sm font-semibold">Make Money with Us</h1>
                             <div className="flex flex-col gap-2">
                                 {
-                                    makeMoneywithUs.map((item,index)=>(
-                                        <Link href={item.href} legacyBehavior key={index}>
-                                            <a className="text-xs hover:underline hover:underline-offset-4">
-                                                {item.label}
-                                            </a>
-                                        </Link>
-                                    ))
+                                    makeMoneywithUs.map((item,index)=>{
+                                        return (
+                                            <Link href={item.href} key={index} legacyBehavior>
+                                                <a className="text-xs hover:underline hover:underline-offset-4">
+                                                    {item.label}
+                                                </a>
+                                            </Link>
+                                        )
+                                    })
                                 }
                             </div>
                         </div>
@@ -460,11 +479,13 @@ const LayoutEl = ({children,title})=>{
                             <div className="flex flex-col gap-2">
                                 {
                                     getToKnowUs.map((item,index)=>{
-                                        return <Link href={item.href} key={index}legacyBehavior>
+                                        return (
+                                            <Link href={item.href} key={index}legacyBehavior>
                                                 <a className="text-xs hover:underline hover:underline-offset-4">
                                                     {item.label}
                                                 </a>
                                             </Link>
+                                        )
                                     })
                                 }
                             </div>
@@ -522,6 +543,92 @@ const LayoutEl = ({children,title})=>{
                     </div>
                 </div>
             </footer>
+
+            {/* Account Drawer */}
+            <div className="fixed bottom-0 left-[8%] z-50 w-10/12 p-0">
+                <Drawer 
+                    placement="bottom" 
+                    closable={false}
+                    onClose={onClose}
+                    open={openAccountDrawer}
+                    key="bottom" 
+                    getContainer={false}
+                    height="100vh" 
+                    bodyStyle={{padding:0}} 
+                >
+                    <div className="grid grid-cols-2 ">
+                        <div>
+                            <Image src="/images/auth-modal-image.jpg"
+                                width={0}
+                                height={0}
+                                sizes="100vw" 
+                                style={{ width: '100%', height: '100vh' }}
+                            />
+                        </div>
+                        <div className="relative">
+                            <Button 
+                                type="text" 
+                                size="large" 
+                                icon={<CloseOutlined className="hover:text-orange-400" />} 
+                                className="mt-2 mr-3 float-right hover:rotate-180" 
+                                style={{background: "inherit"}} 
+                                onClick={()=> setOpenAccountDrawer(false)} 
+                            />
+                            <div className=" clear-right px-[15%] flex flex-col gap-y-5">
+                                <h1 className="text-center text-3xl font-meduim">Login</h1>
+                                <Form layout="vertical" autoComplete="off">
+                                    <div>
+                                        <Item 
+                                            name="email" 
+                                            label="Username or email address"
+                                            rules={[
+                                                { required: true, message: "Email is required" }
+                                                ]}
+                                            >
+                                            <Input size="large" style={{borderRadius:0}} />
+                                        </Item>
+                                        <Item 
+                                            name="password" 
+                                            label="Username or email address"
+                                            rules={[
+                                                { required: true, message: "Password is required" }
+                                                ]}
+                                            >
+                                            <Input size="large" type="password" style={{borderRadius:0}} />
+                                        </Item>
+                                        <Item>
+                                            <Button 
+                                                htmlType="submit"
+                                                size="large" 
+                                                className="bg-orange-500 w-full border-0" 
+                                                style={{borderRadius:0,color:"white"}}
+                                            >Login</Button>
+                                        </Item>
+                                    </div>
+                                </Form>
+                                <a className="underline underline-offset-4 -mt-5 hover:text-black text-center">
+                                    Lost your password?
+                                </a>
+                                <p className="text-xs text-center">
+                                    By continuing, you accept the Website Regulations , 
+                                    Regulations for the sale of alcoholic beverages and 
+                                    the <a className="text-orange-500 hover:text-orange-500 
+                                    font-semibold underline underline-offset-4">
+                                    Privacy Policy</a>
+                                </p>
+                            </div>
+                            <div className="absolute bottom-0 border-t border-t-gray-300 w-full pt-5">
+                                <p className="text-center text-gray-400">
+                                    You dont have an account yet? 
+                                    <Link href="/signup" legacyBehavior>
+                                        <a className="text-blue-500 font-semibold">Register Now</a>
+                                    </Link>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </Drawer>
+            </div>
         </>
     )
 }
