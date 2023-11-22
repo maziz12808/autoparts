@@ -18,7 +18,7 @@ export const getStaticPaths = ()=>{
                 params: {category: 'Brake Disks pads'}
             },
             {
-                params: {category: 'Engin Parts'}
+                params: {category: 'Engine Parts'}
             },
             {
                 params: {category: 'Filters'}

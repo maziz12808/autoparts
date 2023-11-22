@@ -16,7 +16,7 @@ const HomeProducts = ()=>{
             href: "product-category"
         },
         {
-            title: "Engin Parts",
+            title: "Engine Parts",
             src: "/images/transmission.png",
             href: "product-category"
         },

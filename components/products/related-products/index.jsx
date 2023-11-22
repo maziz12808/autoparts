@@ -9,7 +9,6 @@ import {
 } from "@ant-design/icons"
 
 const RelatedProducts = ({data})=>{
-    console.log(data);
     // CONST
     const [iconIndex,setIconIndex] = useState(false)
     const productsDetaeil = [
