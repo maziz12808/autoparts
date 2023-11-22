@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { 
     Dropdown,
     Space,
@@ -9,7 +8,6 @@ import {
     Input,
     Select,
     Badge,
-    Avatar
 } from "antd"
 import { 
     DownOutlined,
@@ -23,10 +21,8 @@ import {
     YoutubeOutlined,
     InstagramOutlined,
     DingtalkOutlined,
-    FacebookOutlined,
     FacebookFilled
 } from "@ant-design/icons"
-import { data } from "autoprefixer";
 
 const { Search } = Input;
 
@@ -256,11 +252,12 @@ const LayoutEl = ({children,title})=>{
       // MARKUP
       const Menu = ({menu,className=null})=>{
         return menu.map((item,index)=>{
-            return (<li key={index}>
-                        <Link href={item.href} legacyBehavior>
-                            <a className={className}>{item.label}</a>
-                        </Link>
-                    </li>)
+            return (
+            <li key={index} >
+                <Link href={item.href} legacyBehavior >
+                    <a className={className}>{item.label}</a>
+                </Link>
+            </li>)
         })
       }
 
@@ -316,11 +313,20 @@ const LayoutEl = ({children,title})=>{
 
                     <div className="flex gap-7 items-center px-[3%] py-5 h-[48] text-[#FFFFFF]">
                         <div>
-                            <Image src="/images/logo-auto-part.png" width={176} height={48}/>
+                            <Image 
+                                src="/images/logo-auto-part.png" 
+                                width={176} 
+                                height={48} 
+                                alt="logo-auto-part" 
+                            />
                         </div>
 
                         <div className="flex gap-3 items-center">
-                            <Button style={{color: "white"}} icon={<MenuOutlined /> }  className="flex items-center px-2 h-[48px] py-[18px] rounded-none border-0 hover:bg-[#34444D]">
+                            <Button 
+                                style={{color: "white"}} 
+                                icon={<MenuOutlined /> }  
+                                className="flex items-center px-2 h-[48px] py-[18px] rounded-none border-0 hover:bg-[#34444D]"
+                            >
                                 Menu
                             </Button>
 
@@ -413,13 +419,13 @@ const LayoutEl = ({children,title})=>{
                             <h1 className="text-sm font-semibold">Let Us Help You</h1>
                             <div className="flex flex-col gap-2">
                                 {
-                                    letUsHelpYou.map((item,index)=>{
-                                        return <Link href={item.href} legacyBehavior>
-                                                <a className="text-xs hover:underline hover:underline-offset-4">
-                                                    {item.label}
-                                                </a>
-                                            </Link>
-                                    })
+                                    letUsHelpYou.map((item,index)=>(
+                                        <Link href={item.href} legacyBehavior key={index}>
+                                            <a className="text-xs hover:underline hover:underline-offset-4">
+                                                {item.label}
+                                            </a>
+                                        </Link>
+                                    ))
                                 }
                             </div>
                         </div>
@@ -427,13 +433,13 @@ const LayoutEl = ({children,title})=>{
                             <h1 className="text-sm font-semibold">Make Money with Us</h1>
                             <div className="flex flex-col gap-2">
                                 {
-                                    makeMoneywithUs.map((item,index)=>{
-                                        return <Link href={item.href} legacyBehavior>
-                                                <a className="text-xs hover:underline hover:underline-offset-4">
-                                                    {item.label}
-                                                </a>
-                                            </Link>
-                                    })
+                                    makeMoneywithUs.map((item,index)=>(
+                                        <Link href={item.href} legacyBehavior key={index}>
+                                            <a className="text-xs hover:underline hover:underline-offset-4">
+                                                {item.label}
+                                            </a>
+                                        </Link>
+                                    ))
                                 }
                             </div>
                         </div>
@@ -442,13 +448,13 @@ const LayoutEl = ({children,title})=>{
                             <h1 className="text-sm font-semibold">Get to Know Us</h1>
                             <div className="flex flex-col gap-2">
                                 {
-                                    getToKnowUs.map((item,index)=>{
-                                        return <Link href={item.href} legacyBehavior>
-                                                <a className="text-xs hover:underline hover:underline-offset-4">
-                                                    {item.label}
-                                                </a>
-                                            </Link>
-                                    })
+                                    getToKnowUs.map((item,index)=>(
+                                        <Link href={item.href} legacyBehavior key={index}>
+                                            <a className="text-xs hover:underline hover:underline-offset-4">
+                                                {item.label}
+                                            </a>
+                                        </Link>
+                                    ))
                                 }
                             </div>
                         </div>
@@ -498,10 +504,10 @@ const LayoutEl = ({children,title})=>{
                     </p>
                     <div className="flex gap-3 items-center">
                         <span>We accept:</span>
-                        <Image src="/images/visa.png" width={40} height={40} />
-                        <Image src="/images/paypal.png" width={40} height={40} />
-                        <Image src="/images/skrill.png" width={40} height={40} />
-                        <Image src="/images/klarna.png" width={40} height={40} />
+                        <Image src="/images/visa.png" width={40} height={40} alt="visa" />
+                        <Image src="/images/paypal.png" width={40} height={40} alt="paypal" />
+                        <Image src="/images/skrill.png" width={40} height={40} alt="skrill" />
+                        <Image src="/images/klarna.png" width={40} height={40} alt="klarna" />
                     </div>
                 </div>
             </footer>
