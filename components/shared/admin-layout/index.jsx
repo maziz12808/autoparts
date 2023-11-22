@@ -3,6 +3,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react" 
 import axios from "axios"
+import Cookies from "universal-cookie"
 import {
     Button,
     Layout,
@@ -17,22 +18,36 @@ const { Item } = Menu
 const AdminLayout = ({children,title=null,toolbar=null})=>{
     // Const 
     const [openSider, setOpenSider] = useState(false) 
+    const [current, setCurrent] = useState('mail');
     const router = useRouter()
+    const cookie = new Cookies()
     const menus = [
         {
-            label: "Dashboard",
-            href: "/admin",
+            label: <Link href="/admin">Dashboard</Link>,
+            key: "admin",
             icon: <DashboardOutlined />
         },
         {
             label: "Products",
-            href: "/admin/products",
-            icon: <i className='bx bxl-product-hunt' />
+            key: "products",
+            icon: <i className='bx bxl-product-hunt' />,
+            children: [
+                {
+                  label: <Link href="/admin/products">Porducts</Link>,
+                  key: 'products:1',
+                },
+                {
+                  label: <Link href="/admin/products/products-category">Porducts Category</Link>,
+                  key: 'products:2',
+                },
+            ]
         }
     ]
+
     const logout = async ()=>{
         try{
             const {data} = await axios.post("/api/admin/auth/logout")
+
             router.push("/admin/login")
         }
         catch(err)
@@ -40,6 +55,9 @@ const AdminLayout = ({children,title=null,toolbar=null})=>{
             message.error("logout failed please try latter")
         }
     }
+    const onClick = (e) => {
+        setCurrent(e.key);
+      };
     return (
         <>
             <Head>
@@ -47,16 +65,8 @@ const AdminLayout = ({children,title=null,toolbar=null})=>{
             </Head>
             <Layout>
                 <Sider trigger={null} collapsible collapsed={openSider} className="min-h-screen">
-                    <Menu theme="dark">
-                        {
-                            menus.map((menuItems,menuIndex)=>(
-                                <Item icon={menuItems.icon} key={menuIndex}>
-                                    <Link href={menuItems.href}>
-                                        {menuItems.label}
-                                    </Link>
-                                </Item>
-                            ))
-                        }
+                    <Menu theme="dark" items={menus} selectedKeys={[current]} onClick={onClick}>
+                       
                     </Menu>
                 </Sider>
                 <Layout>
